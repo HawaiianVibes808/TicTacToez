@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace TicTacToe
 {
@@ -6,374 +7,86 @@ namespace TicTacToe
     {
         public static void Main(string[] args)
         {
-            var gameEnder = "y";
-            while (gameEnder != "n")
+            // var player1 = new Player("X");
+            // var player2 = new Player("O");
+            var player = 'X';
+            
+            /*
+             * Create game class
+             * Should create board
+             * Should take in 2 players for the game
+             * Should handle adding players character to board
+             * Should check for win condition
+             * Should print board
+             */
+            var board = new char[3, 3];
+            Initialize(board);
+            var movesPlayed = 0;
+            var gameEnd = false;
+
+            while (gameEnd == false)
             {
-                var player = 'X';
-                var board = new char[3, 3];
-                Initialize(board);
-                var movesPlayed = 0;
-                var gameEnd = false;
+                Console.Clear();
+                Print(board);
 
-                while (gameEnd == false)
+                Console.Write("Player, please enter row: ");
+                var row = Convert.ToInt32(Console.ReadLine());
+                Console.Write("Player, please enter col: ");
+                var col = Convert.ToInt32(Console.ReadLine());
+
+                board[row, col] = player;
+                var winner = false;
+                for (var i = 0; i < board.GetLength(0); i++) // height
                 {
-                    Console.Clear();
-                    Print(board);
+                    var j = 0;
 
-                    Console.Write("Player, please enter row: ");
-                    var row = Convert.ToInt32(Console.ReadLine());
-                    Console.Write("Player, please enter col: ");
-                    var col = Convert.ToInt32(Console.ReadLine());
-
-                    board[row, col] = player;
-
-                    CheckIfWon(player, gameEnder, board, movesPlayed, gameEnd);
-                    int n = 3;
-                    for (int i = 0; i < n; i++)
+                    if ((board[i, j] == player && board[i, j + 1] == player && board[i, j + 2] == player) ||
+                        (board[j, i] == player && board[j + 1, i] == player && board[j + 2, i] == player) ||
+                        (player == board[i, i] && player == board[i, i] && player == board[i, i]) ||
+                        (player == board[j, j + 2] && player == board[j + 1, j + 1] && player == board[j + 2, j]))
                     {
-                        if(board)
+                        winner = true;
                     }
-                    /*if (player == board[0, 0] && player == board[0, 1] && player == board[0, 2])
-                    {
-                        Console.WriteLine(player + " has won the game!");
-                        Console.WriteLine("Would you like to play again? Enter y for yes or n for no");
-                        var answer = Console.ReadLine();
-                        if (answer == "y")
-                        {
-                            movesPlayed = -1;
-                            Initialize(board);
-                        }
-                        else
-                        {
-                            Console.WriteLine("Thanks for playing!");
-                            gameEnder = "n";
-                            gameEnd = true;
-                        }
-                    }
-                    */
-
-                    if (player == board[1, 0] && player == board[1, 1] && player == board[1, 2])
-                    {
-                        Console.WriteLine(player + " has won the game!");
-                        Console.WriteLine("Would you like to play again? Enter y for yes or n for no");
-                        var answer = Console.ReadLine();
-                        if (answer == "y")
-                        {
-                            movesPlayed = -1;
-                            Initialize(board);
-                        }
-                        else
-                        {
-                            Console.WriteLine("Thanks for playing!");
-                            gameEnder = "n";
-                            gameEnd = true;
-                        }
-                    }
-
-                    if (player == board[2, 0] && player == board[2, 1] && player == board[2, 2])
-                    {
-                        Console.WriteLine(player + " has won the game!");
-                        Console.WriteLine("Would you like to play again? Enter y for yes or n for no");
-                        var answer = Console.ReadLine();
-                        if (answer == "y")
-                        {
-                            movesPlayed = -1;
-                            Initialize(board);
-                        }
-                        else
-                        {
-                            Console.WriteLine("Thanks for playing!");
-                            gameEnder = "n";
-                            gameEnd = true;
-                        }
-                    }
-
-                    if (player == board[0, 0] && player == board[1, 0] && player == board[2, 0])
-                    {
-                        Console.WriteLine(player + " has won the game!");
-                        Console.WriteLine("Would you like to play again? Enter y for yes or n for no");
-                        var answer = Console.ReadLine();
-                        if (answer == "y")
-                        {
-                            movesPlayed = -1;
-                            Initialize(board);
-                        }
-                        else
-                        {
-                            Console.WriteLine("Thanks for playing!");
-                            gameEnder = "n";
-                            gameEnd = true;
-                        }
-                    }
-
-                    if (player == board[0, 1] && player == board[1, 1] && player == board[2, 1])
-                    {
-                        Console.WriteLine(player + " has won the game!");
-                        Console.WriteLine("Would you like to play again? Enter y for yes or n for no");
-                        var answer = Console.ReadLine();
-                        if (answer == "y")
-                        {
-                            movesPlayed = -1;
-                            Initialize(board);
-                        }
-                        else
-                        {
-                            Console.WriteLine("Thanks for playing!");
-                            gameEnder = "n";
-                            gameEnd = true;
-                        }
-                    }
-
-                    if (player == board[0, 2] && player == board[1, 2] && player == board[2, 2])
-                    {
-                        Console.WriteLine(player + " has won the game!");
-                        Console.WriteLine("Would you like to play again? Enter y for yes or n for no");
-                        var answer = Console.ReadLine();
-                        if (answer == "y")
-                        {
-                            movesPlayed = -1;
-                            Initialize(board);
-                        }
-                        else
-                        {
-                            Console.WriteLine("Thanks for playing!");
-                            gameEnder = "n";
-                            gameEnd = true;
-                        }
-                    }
-
-                    if (player == board[0, 0] && player == board[1, 1] && player == board[2, 2])
-                    {
-                        Console.WriteLine(player + " has won the game!");
-                        Console.WriteLine("Would you like to play again? Enter y for yes or n for no");
-                        var answer = Console.ReadLine();
-                        if (answer == "y")
-                        {
-                            movesPlayed = -1;
-                            Initialize(board);
-                        }
-                        else
-                        {
-                            Console.WriteLine("Thanks for playing!");
-                            gameEnder = "n";
-                            gameEnd = true;
-                        }
-                    }
-
-                    if (player == board[0, 2] && player == board[1, 1] && player == board[2, 0])
-                    {
-                        Console.WriteLine(player + " has won the game!");
-                        Console.WriteLine("Would you like to play again? Enter y for yes or n for no");
-                        var answer = Console.ReadLine();
-                        if (answer == "y")
-                        {
-                            movesPlayed = -1;
-                            Initialize(board);
-                        }
-                        else
-                        {
-                            Console.WriteLine("Thanks for playing!");
-                            gameEnder = "n";
-                            gameEnd = true;
-                        }
-                    }
-                    
-
-                    movesPlayed += 1;
-
-                    if (movesPlayed == 9)
-                    {
-                        Console.WriteLine("Draw");
-                        Console.WriteLine("Would you like to play again? Enter y for yes or n for no");
-                        var answer = Console.ReadLine();
-                        if (answer == "y")
-                        {
-                            Initialize(board);
-                        }
-                        else
-                        {
-                            Console.WriteLine("Thanks for playing!");
-                            gameEnder = "n";
-                            gameEnd = true;
-                        }
-                    }
-
-                    player = ChangeTurn(player);
                 }
+
+                movesPlayed += 1;
+                
+                if (winner)
+                {
+                    Console.WriteLine(player + " has won the game!");
+                    Console.WriteLine("Would you like to play again? Enter y for yes or n for no");
+                    var answer = Console.ReadLine();
+                    if (answer == "y")
+                    {
+                        movesPlayed = -1;
+                        Initialize(board);
+                    }
+                    else
+                    {
+                        Console.WriteLine("Thanks for playing!");
+                        gameEnd = true;
+                    }
+                }
+                
+                if (movesPlayed == 9)
+                {
+                    Console.WriteLine("Draw");
+                    Console.WriteLine("Would you like to play again? Enter y for yes or n for no");
+                    var answer = Console.ReadLine();
+                    if (answer == "y")
+                    {
+                        Initialize(board);
+                    }
+                    else
+                    {
+                        Console.WriteLine("Thanks for playing!");
+                        gameEnd = true;
+                    }
+                }
+
+                player = ChangeTurn(player);
             }
         }
-
-        private static void CheckIfWon(int player, string gameEnder, char[,] board, int movesPlayed, bool gameEnd)
-        {
-            if (player == board[0, 0] && player == board[0, 1] && player == board[0, 2])
-            {
-                Console.WriteLine(player + " has won the game!");
-                Console.WriteLine("Would you like to play again? Enter y for yes or n for no");
-                var answer = Console.ReadLine();
-                if (answer == "y")
-                {
-                    movesPlayed = -1;
-                    Initialize(board);
-                }
-                else
-                {
-                    Console.WriteLine("Thanks for playing!");
-                    gameEnder = "n";
-                    gameEnd = true;
-                }
-            }
-            
-            if (player == board[1, 0] && player == board[1, 1] && player == board[1, 2])
-            {
-                Console.WriteLine(player + " has won the game!");
-                Console.WriteLine("Would you like to play again? Enter y for yes or n for no");
-                var answer = Console.ReadLine();
-                if (answer == "y")
-                {
-                    movesPlayed = -1;
-                    Initialize(board);
-                }
-                else
-                {
-                    Console.WriteLine("Thanks for playing!");
-                    gameEnder = "n";
-                    gameEnd = true;
-                }
-            }
-            
-            if (player == board[2, 0] && player == board[2, 1] && player == board[2, 2])
-                    {
-                        Console.WriteLine(player + " has won the game!");
-                        Console.WriteLine("Would you like to play again? Enter y for yes or n for no");
-                        var answer = Console.ReadLine();
-                        if (answer == "y")
-                        {
-                            movesPlayed = -1;
-                            Initialize(board);
-                        }
-                        else
-                        {
-                            Console.WriteLine("Thanks for playing!");
-                            gameEnder = "n";
-                            gameEnd = true;
-                        }
-                    }
-
-            if (player == board[0, 0] && player == board[1, 0] && player == board[2, 0])
-                    {
-                        Console.WriteLine(player + " has won the game!");
-                        Console.WriteLine("Would you like to play again? Enter y for yes or n for no");
-                        var answer = Console.ReadLine();
-                        if (answer == "y")
-                        {
-                            movesPlayed = -1;
-                            Initialize(board);
-                        }
-                        else
-                        {
-                            Console.WriteLine("Thanks for playing!");
-                            gameEnder = "n";
-                            gameEnd = true;
-                        }
-                    }
-
-            if (player == board[0, 1] && player == board[1, 1] && player == board[2, 1])
-                    {
-                        Console.WriteLine(player + " has won the game!");
-                        Console.WriteLine("Would you like to play again? Enter y for yes or n for no");
-                        var answer = Console.ReadLine();
-                        if (answer == "y")
-                        {
-                            movesPlayed = -1;
-                            Initialize(board);
-                        }
-                        else
-                        {
-                            Console.WriteLine("Thanks for playing!");
-                            gameEnder = "n";
-                            gameEnd = true;
-                        }
-                    }
-
-            if (player == board[0, 2] && player == board[1, 2] && player == board[2, 2])
-                    {
-                        Console.WriteLine(player + " has won the game!");
-                        Console.WriteLine("Would you like to play again? Enter y for yes or n for no");
-                        var answer = Console.ReadLine();
-                        if (answer == "y")
-                        {
-                            movesPlayed = -1;
-                            Initialize(board);
-                        }
-                        else
-                        {
-                            Console.WriteLine("Thanks for playing!");
-                            gameEnder = "n";
-                            gameEnd = true;
-                        }
-                    }
-
-            if (player == board[0, 0] && player == board[1, 1] && player == board[2, 2])
-                    {
-                        Console.WriteLine(player + " has won the game!");
-                        Console.WriteLine("Would you like to play again? Enter y for yes or n for no");
-                        var answer = Console.ReadLine();
-                        if (answer == "y")
-                        {
-                            movesPlayed = -1;
-                            Initialize(board);
-                        }
-                        else
-                        {
-                            Console.WriteLine("Thanks for playing!");
-                            gameEnder = "n";
-                            gameEnd = true;
-                        }
-                    }
-
-            if (player == board[0, 2] && player == board[1, 1] && player == board[2, 0])
-                    {
-                        Console.WriteLine(player + " has won the game!");
-                        Console.WriteLine("Would you like to play again? Enter y for yes or n for no");
-                        var answer = Console.ReadLine();
-                        if (answer == "y")
-                        {
-                            movesPlayed = -1;
-                            Initialize(board);
-                        }
-                        else
-                        {
-                            Console.WriteLine("Thanks for playing!");
-                            gameEnder = "n";
-                            gameEnd = true;
-                        }
-                    }
-            
-        }
-
-      /*  private static void Draw(int movesPlayed, bool gameEnd, string gameEnder, char[,] board)
-        {
-            movesPlayed += 1;
-
-            if (movesPlayed == 9)
-            {
-                Console.WriteLine("Draw");
-                Console.WriteLine("Would you like to play again? Enter y for yes or n for no");
-                var answer = Console.ReadLine();
-                if (answer == "y")
-                {
-                    Initialize(board);
-                }
-                else
-                {
-                    Console.WriteLine("Thanks for playing!");
-                    gameEnder = "n";
-                    gameEnd = true;
-                }
-        } 
-        */
-      
-      
 
         private static char ChangeTurn(char currentPlayer)
         {
